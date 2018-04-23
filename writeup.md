@@ -22,7 +22,7 @@ The goals / steps of this project are the following:
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb"  
+The code for this step is contained in the first code cell of the IPython notebook located in "./CarND-advanced_lane_line.ipynb"  
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
@@ -43,7 +43,7 @@ here is one of the test images like this one:
 
 I used a combination of HLS color transform and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  
 
-![](./image_file/filtered_warped_image.PNG?raw=true)
+![](./image_file/warped_image.PNG?raw=true)
 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
@@ -74,13 +74,13 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![](./image_file/filtered_warped_image.PNG?raw=true)
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+![](./image_file/filtered_warped_image.PNG?raw=true)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -90,7 +90,7 @@ I did this in lines # through # in my code in `my_other_file.py`
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
-![alt text][image6]
+![](./image_file/filtered_warped_image.PNG?raw=true)
 
 ---
 
