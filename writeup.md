@@ -81,7 +81,9 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-In order to find lane line pixcels, I have used slinding window serch.
+In order to find lane line pixcels, I have used slinding window serch method.  
+This method 
+
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![](./image_file/filtered_warped_image.PNG?raw=true)
