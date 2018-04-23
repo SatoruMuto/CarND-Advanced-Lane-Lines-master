@@ -51,7 +51,9 @@ sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:  
+
+
 `python
 src = np.float32(
     [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
@@ -95,7 +97,7 @@ Then I did some other stuff and fit my lane lines with a 2nd order polynomial ki
 
 I implemented this step in cell No 29 in my Jupyter notebook `carnd-term1_project4.ipynb` in the function `map_lane()`.  Here is an example of my result on a test image:
 
-![](./image_file/detected_area_image.PNG?raw=true)
+![](./image_file/detected_area_plot.PNG?raw=true)
 
 ---
 
