@@ -29,7 +29,7 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
 ![](./image_file/camera_cal_result.PNG?raw=true)
-
+  
 
 ### Pipeline (single images)
 
@@ -41,7 +41,7 @@ here is one of the test images like this one:
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the XX code cell of the IPython notebook).  Here's an example of my output for this step. 
+I used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  Here's an example of my output for this step. 
 I have tuned thresholds as blow in order to extract lines only as possible as I can.
 
 `s_thresh=(150, 255) # HLS s channel
@@ -55,17 +55,17 @@ The code for my perspective transform includes a function called `warper()`, whi
 
 
 `python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-`
+src = np.float32(  
+    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],   
+    [((img_size[0] / 6) - 10), img_size[1]],   
+    [(img_size[0] * 5 / 6) + 60, img_size[1]],   
+    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])   
+dst = np.float32(   
+    [[(img_size[0] / 4), 0],   
+    [(img_size[0] / 4), img_size[1]],   
+    [(img_size[0] * 3 / 4), img_size[1]],   
+    [(img_size[0] * 3 / 4), 0]])   
+`  
 
 This resulted in the following source and destination points:
 
@@ -82,14 +82,15 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-In order to find lane line pixcels, I have used slinding window serch method.  
-This method 
+In order to find lane line pixcels, I have used slinding window serch method. Basically I split y axis to 9 reasion, and find 1st and 2nd peak of each reasion by histgram, those 2 peaks should be good indicater of x-position of 2 lane lines. 
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Then I used numpy polyfit function to get 2nd order polynominal.
 
 ![](./image_file/filtered_warped_image.PNG?raw=true)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+
+
 
 
 
