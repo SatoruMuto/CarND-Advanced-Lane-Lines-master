@@ -41,10 +41,13 @@ here is one of the test images like this one:
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of HLS color transform and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  
+I used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the XX code cell of the IPython notebook).  Here's an example of my output for this step. 
+I have tuned thresholds as blow in order to extract lines only as possible as I can.
 
-![](./image_file/warped_image.PNG?raw=true)
+`s_thresh=(150, 255) # HLS s channel
+sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 
+![](./image_file/combined_binary_image.PNG?raw=true)
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -78,6 +81,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
+In order to find lane line pixcels, I have used slinding window serch.
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![](./image_file/filtered_warped_image.PNG?raw=true)
