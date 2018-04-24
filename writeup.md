@@ -97,12 +97,33 @@ Radius of curvature is calculated for left lane and right labe separately. The c
 
 1st I need to define real metric and pixcel relation ship. I took metric number from US standard of lane line road marking. 
 `ym_per_pix = 3.05/110 # US standard lane line length is 10 ft = 3.05 meters`
+
 `xm_per_pix = 3.7/640 # International highway standard lane width is 3.7 meters`
 
-then 
+Radius is calculated by following formula. 
+![](./image_file/radius.PNG?raw=true)
+
+In this case, I need radius close to vehicle, so y value is max number of image file shape. 
+
+second I take 
+new polynominal  to x and y in world space.
+`left_fit_cr = np.polyfit(ploty*ym_per_pix, left_fitx*xm_per_pix, 2)`
+
+`right_fit_cr = np.polyfit(ploty*ym_per_pix, right_fitx*xm_per_pix, 2)`
+
+then calculate formula to get radius. 
 `left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])`   
+
 `right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])`   
-   
+
+after that, I take avarage value of those to to calculate representative radius of the road. 
+
+After that, by polynominal line, I also can know x value of each line at the bottom of picture, where vehicle is.
+Assuming on board camera is located on center of the vehcile, I also can assume center of picture is vehicle position. 
+I took difference of "center of 2 lane line" and " center of picture" as offcet of the vehicle within two lane lines.
+ 
+`car_deviation = (car_position - (right_lane_position + left_lane_position)/2 ) * xm_per_pix`
+car position = x_direction_picture_shape/2
 
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
