@@ -43,25 +43,25 @@ here is one of the test images like this one:
 Initially I have used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  I have tuned thresholds as blow in order to extract lines only as possible as I can. However this method still have error when vehicle go over bridge, or shadow on the road.
 
 `    s_thresh=(150, 255) # HLS s channel
-sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
+    sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 
 update on rev2
 Then based on advice, I have applied function to extract yellow line and white line, and created combined binary image as shown on cell 23 and 24 in Jupyter notebook.
 
 `    
-  def select_yellow(image):#update on rev2   
-      hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-      lower = np.array([20,60,60])
-      upper = np.array([38,174,250])
-      mask = cv2.inRange(hsv, lower, upper)
-      return mask  `
+    def select_yellow(image):#update on rev2   
+        hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+        lower = np.array([20,60,60])
+        upper = np.array([38,174,250])
+        mask = cv2.inRange(hsv, lower, upper)
+        return mask  `
     
 `    
-  def select_white(image):
-      lower = np.array([202,202,202])  
-      upper = np.array([255,255,255])  
-      mask = cv2.inRange(image, lower, upper)  
-      return mask   `
+    def select_white(image):
+        lower = np.array([202,202,202])  
+        upper = np.array([255,255,255])  
+        mask = cv2.inRange(image, lower, upper)  
+        return mask   `
 
 Above are criteria I have used to extract yellow and white from picture.
 
@@ -74,17 +74,17 @@ The code for my perspective transform includes a function called `warper()`, in 
 
 
 `    python
-src = np.float32(  
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],   
-    [((img_size[0] / 6) - 10), img_size[1]],   
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],   
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])   
-dst = np.float32(   
-    [[(img_size[0] / 4), 0],   
-    [(img_size[0] / 4), img_size[1]],   
-    [(img_size[0] * 3 / 4), img_size[1]],   
-    [(img_size[0] * 3 / 4), 0]])   
-`  
+    src = np.float32(  
+        [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],   
+        [((img_size[0] / 6) - 10), img_size[1]],   
+        [(img_size[0] * 5 / 6) + 60, img_size[1]],   
+        [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])   
+    dst = np.float32(   
+        [[(img_size[0] / 4), 0],   
+        [(img_size[0] / 4), img_size[1]],   
+        [(img_size[0] * 3 / 4), img_size[1]],   
+        [(img_size[0] * 3 / 4), 0]])   
+    `  
 
 This resulted in the following source and destination points:
 
