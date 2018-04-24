@@ -38,7 +38,6 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 Once I get camera calibration coefficient from above step, I can simply apply  `cv2.undistort()`  to vehicle on-board camera image.
 here is one of the test images like this one:
 ![](./image_file/onborad_camera_cal_result.PNG?raw=true)
-
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
 Initially I have used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  I have tuned thresholds as blow in order to extract lines only as possible as I can. However this method still have error when vehicle go over bridge, or shadow on the road.
@@ -49,24 +48,20 @@ sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 update on rev2
 Then based on advice, I have applied function to extract yellow line and white line, and created combined binary image as shown on cell 23 and 24 in Jupyter notebook.
 
-`def select_yellow(image):#update on rev2 
-
-    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+`
+  def select_yellow(image):#update on rev2   
+      hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+      lower = np.array([20,60,60])
+      upper = np.array([38,174,250])
+      mask = cv2.inRange(hsv, lower, upper)
+      return mask  `
     
-    lower = np.array([20,60,60])
-    
-    upper = np.array([38,174,250])
-    
-    mask = cv2.inRange(hsv, lower, upper)
-    
-    return mask`
-    
-`def select_white(image):
-    lower = np.array([202,202,202])
-    upper = np.array([255,255,255])
-    mask = cv2.inRange(image, lower, upper)
-    return mask
-` 
+`
+  def select_white(image):
+      lower = np.array([202,202,202])  
+      upper = np.array([255,255,255])  
+      mask = cv2.inRange(image, lower, upper)  
+      return mask   `
 
 Above are criteria I have used to extract yellow and white from picture.
 
