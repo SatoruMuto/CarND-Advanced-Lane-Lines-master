@@ -42,7 +42,7 @@ here is one of the test images like this one:
 
 Initially I have used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  I have tuned thresholds as blow in order to extract lines only as possible as I can. However this method still have error when vehicle go over bridge, or shadow on the road.
 
-`    s_thresh=(150, 255) # HLS s channel
+`    s_thresh=(150, 255) # HLS s channel  
     sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 
 update on rev2
