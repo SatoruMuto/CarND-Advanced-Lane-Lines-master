@@ -50,18 +50,24 @@ update on rev2
 Then based on advice, I have applied function to extract yellow line and white line, and created combined binary image as shown on cell 23 and 24 in Jupyter notebook.
 
 `def select_yellow(image):#update on rev2 
-    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-    lower = np.array([20,60,60])
-    upper = np.array([38,174,250])
-    mask = cv2.inRange(hsv, lower, upper)
-    return mask
 
-def select_white(image):
+    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+    
+    lower = np.array([20,60,60])
+    
+    upper = np.array([38,174,250])
+    
+    mask = cv2.inRange(hsv, lower, upper)
+    
+    return mask`
+    
+`def select_white(image):
     lower = np.array([202,202,202])
     upper = np.array([255,255,255])
     mask = cv2.inRange(image, lower, upper)
     return mask
-    `
+` 
+
 Above are criteria I have used to extract yellow and white from picture.
 
 and here is the image created from above method.
