@@ -84,14 +84,25 @@ I verified that my perspective transform was working as expected by drawing the 
 
 In order to find lane line pixcels, I have used slinding window serch method. Basically I split y axis to 9 reasion, and find 1st and 2nd peak of each reasion by histgram, those 2 peaks should be good indicater of x-position of 2 lane lines. 
 
-Then I used numpy polyfit function to get 2nd order polynominal.
+in below picture, there are red line and blue line. Those are 2 peaked area that were detected as most possible position of 2 lane lines. Serching window were also shown as green box.
 
-![](./image_file/filtered_warped_image.PNG?raw=true)
+Then I used numpy polyfit function to get 2nd order polynominal.
+The found poly line was plotted as orange line. 
+
+![](./image_file/sliding_window.PNG?raw=true)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
+Radius of curvature is calculated for left lane and right labe separately. The code is in cell No 29, `map_lane()` function in Jupyter notebook.
 
+1st I need to define real metric and pixcel relation ship. I took metric number from US standard of lane line road marking. 
+`ym_per_pix = 3.05/110 # US standard lane line length is 10 ft = 3.05 meters`
+`xm_per_pix = 3.7/640 # International highway standard lane width is 3.7 meters`
 
+then 
+`left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])`   
+`right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])`   
+   
 
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
@@ -114,6 +125,6 @@ Here's a [link to my video result](./project_output.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
+I tuned parameters on combined binary image, warper, etc in order to get good result. especially to clean-up image to extract clear lane line by combined binary image method was key. However it seems that it is not completely robust on shadow, and road surface change point (such as concreat to Asphalt, at bridge to normal road boundary).  
 
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+It does not continue long time, so if I apply filtering method to outliner, this may be improved. If I store 5 past lane line and rolling mean those value to calculate lane line, this should be improved. 
