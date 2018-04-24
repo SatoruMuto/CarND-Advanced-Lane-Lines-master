@@ -41,17 +41,35 @@ here is one of the test images like this one:
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  Here's an example of my output for this step. 
-I have tuned thresholds as blow in order to extract lines only as possible as I can.
+Initially I have used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  I have tuned thresholds as blow in order to extract lines only as possible as I can. However this method still have error when vehicle go over bridge, or shadow on the road.
 
 `s_thresh=(150, 255) # HLS s channel
 sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 
+update on rev2
+Then based on advice, I have applied function to extract yellow line and white line, and created combined binary image as shown on cell 23 and 24 in Jupyter notebook.
+
+`def select_yellow(image):#update on rev2 
+    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+    lower = np.array([20,60,60])
+    upper = np.array([38,174,250])
+    mask = cv2.inRange(hsv, lower, upper)
+    return mask
+
+def select_white(image):
+    lower = np.array([202,202,202])
+    upper = np.array([255,255,255])
+    mask = cv2.inRange(image, lower, upper)
+    return mask
+    `
+Above are criteria I have used to extract yellow and white from picture.
+
+and here is the image created from above method.
 ![](./image_file/combined_binary_image.PNG?raw=true)
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:  
+The code for my perspective transform includes a function called `warper()`, in the 16th code cell of the Jupyter notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:  
 
 
 `python
@@ -93,7 +111,7 @@ The found poly line was plotted as orange line.
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-Radius of curvature is calculated for left lane and right labe separately. The code is in cell No 29, `map_lane()` function in Jupyter notebook.
+Radius of curvature is calculated for left lane and right labe separately. The code is in cell No 30, `map_lane()` function in Jupyter notebook.
 
 1st I need to define real metric and pixcel relation ship. I took metric number from US standard of lane line road marking. 
 `ym_per_pix = 3.05/110 # US standard lane line length is 10 ft = 3.05 meters`
@@ -130,7 +148,7 @@ car position = x_direction_picture_shape/2
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in cell No 29 in my Jupyter notebook `carnd-term1_project4.ipynb` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step in cell No 30 in my Jupyter notebook `carnd-term1_project4_rev2.ipynb` in the function `map_lane()`.  Here is an example of my result on a test image:
 
 ![](./image_file/detected_area_plot.PNG?raw=true)
 
