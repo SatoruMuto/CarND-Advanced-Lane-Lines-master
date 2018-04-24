@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 ---
 
 ### Camera Calibration
-
+   
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
 The code for this step is contained in the first code cell of the IPython notebook located in "./CarND-advanced_lane_line.ipynb"  
@@ -42,13 +42,13 @@ here is one of the test images like this one:
 
 Initially I have used a combination of HLS color transform and x-gradient thresholds to generate a binary image (in the 23 code cell of the Jupyter notebook).  I have tuned thresholds as blow in order to extract lines only as possible as I can. However this method still have error when vehicle go over bridge, or shadow on the road.
 
-`s_thresh=(150, 255) # HLS s channel
+`    s_thresh=(150, 255) # HLS s channel
 sx_thresh=(50, 150) # HLS l channel (without threshold) with x-gradient `
 
 update on rev2
 Then based on advice, I have applied function to extract yellow line and white line, and created combined binary image as shown on cell 23 and 24 in Jupyter notebook.
 
-`
+`    
   def select_yellow(image):#update on rev2   
       hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
       lower = np.array([20,60,60])
@@ -56,7 +56,7 @@ Then based on advice, I have applied function to extract yellow line and white l
       mask = cv2.inRange(hsv, lower, upper)
       return mask  `
     
-`
+`    
   def select_white(image):
       lower = np.array([202,202,202])  
       upper = np.array([255,255,255])  
@@ -73,7 +73,7 @@ and here is the image created from above method.
 The code for my perspective transform includes a function called `warper()`, in the 16th code cell of the Jupyter notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:  
 
 
-`python
+`    python
 src = np.float32(  
     [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],   
     [((img_size[0] / 6) - 10), img_size[1]],   
