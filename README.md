@@ -1,4 +1,4 @@
-# CarND-Advanced-Lane-Lines-master
+ # CarND-Advanced-Lane-Lines 
 Udacity_4th_project_advanced-lane-line-detection
 
 This repo is created for Udacity carnd advanced lane line detection project submission
